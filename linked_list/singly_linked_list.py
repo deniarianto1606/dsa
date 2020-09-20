@@ -30,7 +30,7 @@ class SinglyLinkedList():
     #    nt cn
     def pop(self):
         if self.head is None:
-            return False
+            return None
         current_node = self.head
         new_tail = self.head
         while current_node.next_node is not None:
@@ -40,6 +40,17 @@ class SinglyLinkedList():
         self.tail.next_node = None
         self.length -= 1
         return current_node
+
+    # n(1) : just need move head pointer to next pointer
+    def delete_first(self):
+        if self.head is None:
+            return None
+        deleted_node = self.head
+        self.head = self.head.next_node
+        self.length -= 1
+        if self.head is None:
+            self.tail = self.head
+        return deleted_node
 
 
 def test_push():
@@ -58,5 +69,14 @@ def test_pop():
     print()
 
 
+def test_delete_first():
+    singly = SinglyLinkedList()
+    singly.delete_first()
+    singly.delete_first()
+    singly.delete_first()
+    print()
+
+
 test_push()
 test_pop()
+test_delete_first()
