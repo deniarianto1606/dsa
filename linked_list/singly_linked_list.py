@@ -41,7 +41,7 @@ class SinglyLinkedList():
         self.length -= 1
         return current_node
 
-    # n(1) : just need move head pointer to next pointer
+    # o(1) : just need move head pointer to next pointer
     def delete_first(self):
         if self.head is None:
             return None
@@ -51,6 +51,18 @@ class SinglyLinkedList():
         if self.head is None:
             self.tail = self.head
         return deleted_node
+
+    # o(1) : just need create new node and pointing next to head
+    def add_first(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            self.tail = self.head
+        else:
+            new_node.next_node = self.head
+            self.head = new_node
+        self.length += 1
+        return self.head
 
 
 def test_push():
@@ -71,12 +83,25 @@ def test_pop():
 
 def test_delete_first():
     singly = SinglyLinkedList()
+    singly.push(9)
+    singly.push(1)
+    singly.push(3)
     singly.delete_first()
     singly.delete_first()
     singly.delete_first()
     print()
 
 
+def test_add_first():
+    singly = SinglyLinkedList()
+    singly.push(9)
+    singly.push(1)
+    singly.push(3)
+    singly.add_first(100)
+    print()
+
+
 test_push()
 test_pop()
 test_delete_first()
+test_add_first()
