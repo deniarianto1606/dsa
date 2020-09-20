@@ -18,6 +18,15 @@ class SinglyLinkedList():
             temp = temp.next_node
         text_to_print += str(temp.data)
         print(text_to_print)
+    
+    def print_from_param(self, linked_list):
+        text_to_print = ""
+        temp = linked_list
+        while temp.next_node is not None:
+            text_to_print += str(temp.data) + ", "
+            temp = temp.next_node
+        text_to_print += str(temp.data)
+        print(text_to_print)
 
     # push : insert last.
     # push o(1) : we can push directly to tail,
@@ -103,7 +112,7 @@ class SinglyLinkedList():
         if self.length == index: return self.push(data)
         counter = 0
         temp = self.head
-        current = temp
+        current = temp 
         while counter != index:
             current = temp
             temp = temp.next_node
@@ -112,6 +121,40 @@ class SinglyLinkedList():
         current.next_node = new_node
         new_node.next_node = temp
         return self.head
+
+    # o(n): we need to traverse until position of index
+    # remove_in will remove node in index n
+    # need temp and current node to change the pointer
+    # remove_in will change current_node to temp_node
+    def remove_in(self, index):
+        if index > self.length or index < 0:
+            return None
+        if index == 0: return self.delete_first()
+        if index == self.length: return self.pop()
+        counter = 0
+        temp = self.head
+        current = self.head
+        while counter != index:
+            current = temp
+            temp = temp.next_node
+            counter += 1
+        current.next_node = temp.next_node
+        temp = None
+        return self.head
+
+    #o(n) : reverse linked_list from head and add first 
+    def reverse(self):
+        if self.head is None:
+            return None
+        reversed_node = Node(self.head.data)
+        temp = self.head
+        while temp.next_node is not None:
+            temp = temp.next_node
+            new_node = Node(temp.data)
+            new_node.next_node = reversed_node
+            reversed_node = new_node
+        return reversed_node
+        
 
 
 
@@ -176,8 +219,32 @@ def test_insert_in():
     singly.insert_in(100, 2)
     singly.insert_in(99, 0)
     singly.insert_in(77, 5)
-    singly.print()
+    # singly.print()
 
+
+def test_remove_in():
+    singly = SinglyLinkedList()
+    singly.push(9)
+    singly.push(1)
+    singly.push(3)
+    singly.push(99)
+    singly.push(77)
+    singly.print()
+    singly.remove_in(2)
+    singly.remove_in(0)
+    singly.remove_in(2)
+    # singly.print()
+
+def test_reversed():
+    singly = SinglyLinkedList()
+    singly.push(9)
+    singly.push(1)
+    singly.push(3)
+    singly.push(99)
+    singly.push(77)
+    singly.print_from_param(singly.reverse())
+
+    
 test_push()
 test_pop()
 test_delete_first()
@@ -185,3 +252,5 @@ test_add_first()
 test_get_in()
 test_set_in()
 test_insert_in()
+test_remove_in()
+test_reversed()
