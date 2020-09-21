@@ -5,7 +5,7 @@ class Node(object):
         self.prev_node = prev_node
 
 
-class DoublyLinkedList():
+class DoublyLinkedList:
     def __init__(self, head=None, tail=None, length=0):
         self.head = head
         self.tail = tail
