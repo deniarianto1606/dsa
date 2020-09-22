@@ -110,6 +110,91 @@ class DoublyLinkedList:
             return self.head
         return None
 
+    
+    def insert_in(self, data, index):
+        new_node = Node(data)
+        if index == 0 : return self.unshift(data)
+        if index == self.length: return self.push(data)
+        temp = self.get_in(index)
+        temp_prev = temp.prev_node
+        temp_prev.next_node = new_node
+        new_node.prev_node = temp_prev
+        new_node.next_node = temp
+        temp.prev_node = new_node
+        return self.head
+    
+
+    def remove_in(self, index):
+        if index >= self.length or index < 0:
+            return None
+        if index == 0: return self.shifting()
+        if index == self.length-1: return self.pop()
+        deleted_node = self.get_in(index)
+        deleted_prev = deleted_node.prev_node
+        deleted_next = deleted_node.next_node
+        deleted_prev.next_node = deleted_next
+        deleted_next.prev_node = deleted_prev
+        deleted_node.next_node = None
+        deleted_node.prev_node = None
+        return deleted_node
+
+    
+    def softed_insert(self, data):
+        new_node = Node(data)
+        current = self.head
+        
+        # head
+        if data <= current.data:
+            current.prev_node = new_node
+            new_node.next_node = current
+            self.head = new_node
+            return self.head
+
+        while current.next_node is not None:            
+            if current.data <= data and current.next_node.data >= data:
+                break
+            current = current.next_node
+        # tail    
+        if current.next_node is None: #case tail
+            current.next_node = new_node
+            new_node.prev_node = current
+            return self.head
+        current_next = current.next_node
+        current.next_node = new_node
+        new_node.prev_node = current
+        new_node.next_node = current_next
+        current_next.prev_node = new_node
+        return self.head
+        
+def test_sorted_insert():
+    doubly = DoublyLinkedList()
+    doubly.push(1)
+    doubly.push(2)
+    doubly.push(4)
+    doubly.push(4)
+    doubly.push(10)
+    doubly.softed_insert(5)
+    doubly.softed_insert(4)
+    doubly.softed_insert(5)
+    doubly.softed_insert(4)
+    doubly.print()
+
+
+def test_remove_in():
+    doubly = DoublyLinkedList()
+    doubly.push(29)
+    doubly.push(1)
+    doubly.push(99)
+    doubly.remove_in(2)
+    doubly.print()
+
+def test_insert_in():
+    doubly = DoublyLinkedList()
+    doubly.push(29)
+    doubly.push(1)
+    doubly.push(99)
+    doubly.insert_in(88, 3)
+    doubly.print()
 
 def test_set_in():
     doubly = DoublyLinkedList()
@@ -174,6 +259,9 @@ def test_push():
     doubly.print()
 
 
+test_sorted_insert()
+test_remove_in()
+test_insert_in()
 test_set_in()
 test_get_in()
 test_unshift()
