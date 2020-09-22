@@ -110,10 +110,11 @@ class DoublyLinkedList:
             return self.head
         return None
 
-    
+    # o(n) because need to traverse
+    # o(1) when add in index 0 or last
     def insert_in(self, data, index):
         new_node = Node(data)
-        if index == 0 : return self.unshift(data)
+        if index == 0: return self.unshift(data)
         if index == self.length: return self.push(data)
         temp = self.get_in(index)
         temp_prev = temp.prev_node
@@ -121,9 +122,11 @@ class DoublyLinkedList:
         new_node.prev_node = temp_prev
         new_node.next_node = temp
         temp.prev_node = new_node
+        self.length += 1
         return self.head
-    
 
+    # o(n) because need to traverse
+    # o(1) when add in index 0 or last
     def remove_in(self, index):
         if index >= self.length or index < 0:
             return None
@@ -136,13 +139,16 @@ class DoublyLinkedList:
         deleted_next.prev_node = deleted_prev
         deleted_node.next_node = None
         deleted_node.prev_node = None
+        self.length -= 1
         return deleted_node
 
-    
-    def softed_insert(self, data):
+    # o(n) because need to traverse
+    # o(1) when add in index 0 or last
+    # insert data to sorted double linked  list
+    def sorted_insert(self, data):
         new_node = Node(data)
         current = self.head
-        
+
         # head
         if data <= current.data:
             current.prev_node = new_node
@@ -150,8 +156,8 @@ class DoublyLinkedList:
             self.head = new_node
             return self.head
 
-        while current.next_node is not None:            
-            if current.data <= data and current.next_node.data >= data:
+        while current.next_node is not None:
+            if current.data <= data <= current.next_node.data:
                 break
             current = current.next_node
         # tail    
@@ -165,7 +171,8 @@ class DoublyLinkedList:
         new_node.next_node = current_next
         current_next.prev_node = new_node
         return self.head
-        
+
+
 def test_sorted_insert():
     doubly = DoublyLinkedList()
     doubly.push(1)
@@ -173,10 +180,10 @@ def test_sorted_insert():
     doubly.push(4)
     doubly.push(4)
     doubly.push(10)
-    doubly.softed_insert(5)
-    doubly.softed_insert(4)
-    doubly.softed_insert(5)
-    doubly.softed_insert(4)
+    doubly.sorted_insert(5)
+    doubly.sorted_insert(4)
+    doubly.sorted_insert(5)
+    doubly.sorted_insert(4)
     doubly.print()
 
 
