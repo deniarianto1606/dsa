@@ -52,6 +52,7 @@ class BinarySearchTree:
         print(self.root.data)
         self.breadth_first_search_print(self.root)
 
+    # BFS iterative version is using array with queue algorithm to queue every level node (left to right) and dequueu after it had readed.
     def breadth_first_search_loop(self):
         if self.root is None:
             return None
