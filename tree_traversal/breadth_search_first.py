@@ -9,6 +9,7 @@ class BinarySearchTree:
     def __init__(self, root=None):
         self.root = root
 
+    # BFS push using recursive, loop version had already implement in BST package
     def push_rec(self, new_node, current):
         if new_node.data == current.data:
             return None
@@ -52,8 +53,19 @@ class BinarySearchTree:
         self.breadth_first_search_print(self.root)
 
     def breadth_first_search_loop(self):
-        self.breadth_first_search_print(self.root)
-
+        if self.root is None:
+            return None
+        
+        bfs = []
+        bfs.append(self.root)
+        while len(bfs) != 0:
+            print(bfs[0].data)
+            if bfs[0].left is not None:
+                bfs.append(bfs[0].left)
+            if bfs[0].right is not None:
+                bfs.append(bfs[0].right)
+            bfs.pop(0)
+            
 
 def test_breadth_first_search():
     binary = BinarySearchTree()
@@ -64,5 +76,7 @@ def test_breadth_first_search():
     binary.push_recursive(15)
     binary.push_recursive(20)
     binary.breadth_first_search()
+    print("=======")
+    binary.breadth_first_search_loop()
 
 test_breadth_first_search()
