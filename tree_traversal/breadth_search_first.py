@@ -57,8 +57,9 @@ class BinarySearchTree:
         if self.root is None:
             return None
         
+        temp = self.root
         bfs = []
-        bfs.append(self.root)
+        bfs.append(temp)
         while len(bfs) != 0:
             print(bfs[0].data)
             if bfs[0].left is not None:
