@@ -39,13 +39,8 @@ class DepthFirstPostOrder:
             return None
         if root_node.left is not None:
             self.print_recursive(root_node.left)
-            print(root_node.left.data)
         if root_node.right is not None:
             self.print_recursive(root_node.right)
-            print(root_node.right.data)
-    
-    def print_recursive2(self, root_node):
-        self.print_recursive(root_node)
         print(root_node.data)
 
     def print_recursive_return_array(self, root_node):
@@ -73,7 +68,7 @@ def test_depth_first_search():
     binary.push_recursive(8)
     binary.push_recursive(15)
     binary.push_recursive(20)
-    binary.print_recursive2(binary.root)
+    binary.print_recursive(binary.root)
     print("=======")
     result = binary.print_recursive_return_array(binary.root)
     for i in range(len(result)):
