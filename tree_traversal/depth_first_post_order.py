@@ -56,14 +56,12 @@ class DepthFirstPostOrder:
                 return None
             if node.left is not None:
                 post_order(node.left)
-                results.append(node.left.data)
             if node.right is not None:
                 post_order(node.right)
-                results.append(node.right.data)
+            results.append(node.data)
             return results
         
         post_order(root_node)
-        results.append(root_node.data)
         return results
 
 
